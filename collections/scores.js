@@ -11,10 +11,10 @@ Score = new SimpleSchema({
 		type: String
 	},
 	userScore: {
-		type: double
+		type: Number
 	},
 	maxScore: {
-		type: double
+		type: Number
 	}
 });
 
@@ -37,7 +37,7 @@ ScoresSchema = new SimpleSchema({
 			return new Date();
 		},
 		autoform: {
-			type: "hidden";
+			type: "hidden"
 		}
 	}
 });
