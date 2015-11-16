@@ -1,12 +1,12 @@
-Scores = new Mongo.Collection('scores');
+Students= new Mongo.Collection('students');
 
-Scores.allow({
+Students.allow({
 	insert: function(userId, doc){
-		return !!userId;
+		return !!userId; //checks if userId exists
 	}
 })
 
-Score = new SimpleSchema({
+/*Score = new SimpleSchema({
 	examName: {
 		type: String
 	},
@@ -18,7 +18,7 @@ Score = new SimpleSchema({
 	}
 });
 
-ScoresSchema = new SimpleSchema({
+StudentsSchema = new SimpleSchema({
 	name: {
 		type: String,
 		label: "Name"
@@ -40,4 +40,4 @@ ScoresSchema = new SimpleSchema({
 			type: "hidden"
 		}
 	}
-});
+});*/
