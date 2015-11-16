@@ -23,12 +23,16 @@ ScoresSchema = new SimpleSchema({
 		type: String,
 		label: "Name"
 	},
-	scores: {
-		type: [Score]
-	},
 	school: {
 		type: String,
 		label: "School"
+	},
+	grade: {
+		type: Number,
+		label: "Grade"
+	},
+	scores: {
+		type: [Score]
 	},
 	createdAt: {
 		type: Date,
