@@ -1,27 +1,36 @@
-Students= new Mongo.Collection('students');
+Students = new Mongo.Collection('students');
 
+// Allow everything for easier development
 Students.allow({
-	insert: function(userId, doc){
-		return !!userId; //checks if userId exists
-	}
-})
-
-/*Score = new SimpleSchema({
-	examName: {
-		type: String
-	},
-	userScore: {
-		type: Number
-	},
-	maxScore: {
-		type: Number
+	insert: function(userId, doc) {
+		//return !!userId; //checks if userId exists
+		return true;
 	}
 });
 
-StudentsSchema = new SimpleSchema({
-	name: {
+ExamSchema = new SimpleSchema({
+	examName: {
 		type: String,
-		label: "Name"
+		label: "Exam Name"
+	},
+	earnedScore: {
+		type: Number,
+		label: "Score"
+	},
+	maxScore: {
+		type: Number,
+		label: "Max Score"
+	}
+});
+
+StudentSchema = new SimpleSchema({
+	firstName: {
+		type: String,
+		label: "First Name"
+	},
+	lastName: {
+		type: String,
+		label: "Last Name"
 	},
 	school: {
 		type: String,
@@ -31,18 +40,64 @@ StudentsSchema = new SimpleSchema({
 		type: Number,
 		label: "Grade"
 	},
-	scores: {
-		type: [Score]
+	exams: {
+		type: [ExamSchema],
+		label: "Exams"
 	},
-	createdAt: {
+	sumEarnedScore: {
+		type: Number,
+		label: "Sum of Earned Exam Scores",
+		autoValue: function() {
+			var sum = 0;
+			for (var i = 0; i < this.field("exams").value.length; i++) {
+				sum += this.field("exams").value[i].earnedScore;
+			}
+			return sum;
+		}
+	},
+	sumExamMaxScore: {
+		type: Number,
+		label: "Sum of Max Exam Scores",
+		autoValue: function() {
+			var sum = 0;
+			for (var i = 0; i < this.field("exams").value.length; i++) {
+				sum += this.field("exams").value[i].maxScore;
+			}
+			return sum;
+		}
+	},
+	updatedAt: {
 		type: Date,
 		label: "Created At",
-		autoValue: function(){
+		autoValue: function() {
 			return new Date();
 		},
 		autoform: {
 			type: "hidden"
 		}
 	}
-<<<<<<< HEAD:collections/students.js
-});*/
+});
+
+var student1 = {
+	firstName: "Tony",
+	lastName: "Wang",
+	school: "Aragon",
+	grade: 12,
+	exams: [
+		{
+			examName: "Exam 1",
+			earnedScore: 4,
+			maxScore: 6
+		},
+		{
+			examName: "Exam 2",
+			earnedScore: 5,
+			maxScore: 6
+		}
+	],
+	updatedAt: null
+}
+
+StudentSchema.clean(student1);
+
+Students.insert(student1);
