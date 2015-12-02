@@ -1,7 +1,26 @@
-<template name="Leaderboard">
-	<div class="scores">
+<head>
+  <title>AML Leaderboard</title>
+</head>
+
+<body>
+  {{> leaderboard}}
+</body>
+
+<template name="leaderboard">
+  <input type="button" class="sortFirstName" value="First Name"/>
+  <input type="button" class="sortLastName" value="Last Name"/>
+  <input type="button" class="sortTotal" value="Total Score"/>
+	<div class="leaderboard">
 		{{#each students}}
-			<div> HI </div>
+			{{> student}}
 		{{/each}}
 	</div>
+</template>
+
+<template name="student">
+  <div class="student">
+    <span class="name">{{firstName}}</span>
+    <span class="lastName">{{lastName}}</span>
+    <span class="totalScore">{{sumEarnedScore}}</span>
+  </div>
 </template>

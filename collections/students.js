@@ -79,19 +79,19 @@ StudentSchema = new SimpleSchema({
 });
 
 var student1 = {
-	firstName: "Tony",
-	lastName: "Wang",
+	firstName: "Jason",
+	lastName: "Lim",
 	school: "Aragon",
 	grade: 12,
 	exams: [
 		{
 			examName: "Exam 1",
-			earnedScore: 4,
+			earnedScore: 5,
 			maxScore: 6
 		},
 		{
 			examName: "Exam 2",
-			earnedScore: 5,
+			earnedScore: 3,
 			maxScore: 6
 		}
 	],
