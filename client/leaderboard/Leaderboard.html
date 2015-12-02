@@ -1,20 +1,70 @@
 <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
   <title>AML Leaderboard</title>
+
+  <!-- Bootstrap Core CSS -->
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom CSS -->
+  <link href="css/leaderboard.css" rel="stylesheet">
 </head>
 
-<body>
-  {{> leaderboard}}
+<body style="margin:0; padding:0;">
+  <div id="wrapper">
+    <!-- Sidebar -->
+    <div id="sidebar-wrapper">
+      <ul class="sidebar-nav">
+        <li class="sidebar-brand">
+          Sorting Options
+        </li>
+        {{> sortings}}
+      </ul>
+    </div>
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-lg-12">
+            <h1>AML Leaderboard</h1>
+            <a class="btn btn-default" id="menu-toggle">Toggle Sidebar</a>
+          </div>
+        </div>
+        {{> leaderboard}}
+      </div>
+    </div>
+  <!-- /#page-content-wrapper -->
+  </div>
+  <!-- /#wrapper -->
+
+  <!-- jQuery -->
+  <script type="text/html" src="js/jquery.js"></script>
+
+  <!-- Bootstrap Core JavaScript -->
+  <script type="text/html" src="js/bootstrap.min.js"></script>
+
+  <!-- Menu Toggle Script -->
+  <script>
+    $("#menu-toggle").click(function(event) {
+        event.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+    $("#menu-toggle").mouseup(function() {
+      $(this).blur();
+    });
+  </script>
 </body>
 
 <template name="leaderboard">
-  <input type="button" class="sortFirstName" value="First Name"/>
-  <input type="button" class="sortLastName" value="Last Name"/>
-  <input type="button" class="sortTotal" value="Total Score"/>
-	<div class="leaderboard">
-		{{#each students}}
-			{{> student}}
-		{{/each}}
-	</div>
+  <div class="leaderboard">
+    {{#each students}}
+      {{> student}}
+    {{/each}}
+  </div>
 </template>
 
 <template name="student">
@@ -22,5 +72,19 @@
     <span class="name">{{firstName}}</span>
     <span class="lastName">{{lastName}}</span>
     <span class="totalScore">{{sumEarnedScore}}</span>
+  </div>
+</template>
+
+<template name="sortings">
+  <div class="sortings">
+    <li>
+      <a href class="sortTotal">Rank (Total Score)</a>
+    </li>
+    <li>
+      <a href class="sortFirstName">First Name</a>
+    </li>
+    <li>
+      <a href class="sortLastName">Last Name</a>
+    </li>
   </div>
 </template>

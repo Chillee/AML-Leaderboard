@@ -9,14 +9,14 @@ Template.leaderboard.helpers({
 	}
 });
 
-Template.leaderboard.events({
-  'click input.sortFirstName': function () {
-    Session.set("sort_by", {lastName: 1, firstName: 1, sumEarnedScore: -1});
+Template.sortings.events({
+  'click .sortTotal': function() {
+    Session.set("sort_by", {sumEarnedScore: -1, lastName: 1, firstName: 1});
   },
-  'click input.sortLastName': function () {
+  'click .sortFirstName': function() {
     Session.set("sort_by", {firstName: 1, lastName: 1, sumEarnedScore: -1});
   },
-  'click input.sortTotal': function () {
-    Session.set("sort_by", {sumEarnedScore: -1, lastName: 1, firstName: 1});
+  'click .sortLastName': function() {
+    Session.set("sort_by", {lastName: 1, firstName: 1, sumEarnedScore: -1});
   }
 });
