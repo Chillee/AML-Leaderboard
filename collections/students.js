@@ -8,21 +8,6 @@ Students.allow({
 	}
 });
 
-ExamSchema = new SimpleSchema({
-	examName: {
-		type: String,
-		label: "Exam Name"
-	},
-	earnedScore: {
-		type: Number,
-		label: "Score"
-	},
-	maxScore: {
-		type: Number,
-		label: "Max Score"
-	}
-});
-
 StudentSchema = new SimpleSchema({
 	firstName: {
 		type: String,
@@ -40,28 +25,40 @@ StudentSchema = new SimpleSchema({
 		type: Number,
 		label: "Grade"
 	},
-	exams: {
-		type: [ExamSchema],
-		label: "Exams"
+	exam1: {
+		type: Number,
+		label: "Exam 1",
+		defaultValue: -1
 	},
-	sumEarnedScore: {
+	exam2: {
+		type: Number,
+		label: "Exam 2",
+		defaultValue: -1
+	},
+	exam3: {
+		type: Number,
+		label: "Exam 3",
+		defaultValue: -1
+	},
+	exam4: {
+		type: Number,
+		label: "Exam 4",
+		defaultValue: -1
+	},
+	exam5: {
+		type: Number,
+		label: "Exam 5",
+		defaultValue: -1
+	},
+	totalScore: {
 		type: Number,
 		label: "Sum of Earned Exam Scores",
 		autoValue: function() {
 			var sum = 0;
-			for (var i = 0; i < this.field("exams").value.length; i++) {
-				sum += this.field("exams").value[i].earnedScore;
-			}
-			return sum;
-		}
-	},
-	sumExamMaxScore: {
-		type: Number,
-		label: "Sum of Max Exam Scores",
-		autoValue: function() {
-			var sum = 0;
-			for (var i = 0; i < this.field("exams").value.length; i++) {
-				sum += this.field("exams").value[i].maxScore;
+			for (var i = 1; i <= 5; i++) {
+				if (this.field("exam" + i.toString()).value > 0) {
+					sum += this.field("exam" + i.toString()).value;
+				}
 			}
 			return sum;
 		}
@@ -78,24 +75,26 @@ StudentSchema = new SimpleSchema({
 	}
 });
 
+function randomID() {
+    var text = "", possible = "qwertyuiopasdfghjklzxcvbnm";
+    for (var i = 0; i < 5; i++) {
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+    }
+    return text;
+}
+
 var student1 = {
-	firstName: "Jason",
-	lastName: "Lim",
-	school: "Aragon",
-	grade: 12,
-	exams: [
-		{
-			examName: "Exam 1",
-			earnedScore: 5,
-			maxScore: 6
-		},
-		{
-			examName: "Exam 2",
-			earnedScore: 3,
-			maxScore: 6
-		}
-	],
+	firstName: randomID(),
+	lastName: randomID(),
+	school: randomID(),
+	grade: Math.floor(Math.random() * 13),
+	exam1: Math.floor(Math.random() * 7),
 	updatedAt: null
+}
+for (var i = 2; i <= 5; i++) {
+	if (Math.random() < 0.5) {
+		student1["exam" + i.toString()] = Math.floor(Math.random() * 7);
+	}
 }
 
 StudentSchema.clean(student1);
