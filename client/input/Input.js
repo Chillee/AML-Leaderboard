@@ -3,16 +3,15 @@ Template.Input.helpers({
 		return {
 			position: 'bottom',
 			limit: 10,
-			rules: [
-			{
+			rules: [{
 				collection: Students,
 				field: this.field,
 				matchAll: true,
 				template: Template.standard
 			}]
-		}
+		};
 	}
-})
+});
 
 Template.Input.events({
 	"autocompleteselect input": function(event, template, doc){
@@ -20,4 +19,4 @@ Template.Input.events({
 		$('#firstName').val(doc.firstName);
 		$('#lastName').val(doc.lastName);
 	}
-})
+});

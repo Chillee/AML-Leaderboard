@@ -1,16 +1,21 @@
+function setDefaultSortOptions() {
+  Session.set("sort_totalScore", -1);
+  Session.set("sort_firstName", 1);
+  Session.set("sort_lastName", 1);
+  Session.set("sort_school", 1)
+  Session.set("sort_grade", 1);
+  Session.set("sort_exam1", -1);
+  Session.set("sort_exam2", -1);
+  Session.set("sort_exam3", -1);
+  Session.set("sort_exam4", -1);
+  Session.set("sort_exam5", -1);
+}
+
 Meteor.startup(function() {
   Meteor.subscribe('students');
-  Session.set("sortTotalScore", -1);
-  Session.set("sortFirstName", 1);
-  Session.set("sortLastName", 1);
-  Session.set("sortSchool", 1)
-  Session.set("sortGrade", 1);
-  Session.set("sortExam1", -1);
-  Session.set("sortExam2", -1);
-  Session.set("sortExam3", -1);
-  Session.set("sortExam4", -1);
-  Session.set("sortExam5", -1);
-  Session.set("sort_by", {totalScore: Session.get("sortTotalScore")});
+  setDefaultSortOptions();
+  Session.set("sort_current", "totalScore");
+  Session.set("sort_by", {totalScore: Session.get("sort_totalScore")});
 });
 
 function getRankList() {
@@ -25,7 +30,7 @@ function getRankList() {
   return rankList;
 }
 
-Template.leaderboard.helpers({
+Template.Leaderboard.helpers({
   students: function() {
     var rankList = getRankList();
     return Students.find({}, {
@@ -40,79 +45,53 @@ Template.leaderboard.helpers({
         return student;
       }
     });
-	}
+	},
+  arrow: function(sortParam) {
+    if (Session.get("sort_current") == sortParam) {
+      if (Session.get("sort_" + sortParam) == -1) {
+        return "&#8615;";
+      } else {
+        return "&#8613;";
+      }
+    } else {
+      return "";
+    }
+  }
 });
 
-Template.leaderboard.events({
-  'click .sortTotalScore': function() {
-    Session.set("sortTotalScore", -Session.get("sortTotalScore"));
-    Session.set("sort_by", {
-      totalScore: Session.get("sortTotalScore"),
-      firstName: Session.get("sortFirstName"),
-      lastName: Session.get("sortLastName")
-    });
-  },
-  'click .sortFirstName': function() {
-    Session.set("sortFirstName", -Session.get("sortFirstName"));
-    Session.set("sort_by", {
-      firstName: Session.get("sortFirstName"),
-      totalScore: Session.get("sortTotalScore")
-    });
-  },
-  'click .sortLastName': function() {
-    Session.set("sortLastName", -Session.get("sortLastName"));
-    Session.set("sort_by", {
-      lastName: Session.get("sortLastName"),
-      totalScore: Session.get("sortTotalScore")
-    });
-  },
-  'click .sortSchool': function() {
-    Session.set("sortSchool", -Session.get("sortSchool"));
-    Session.set("sort_by", {
-      school: Session.get("sortSchool"),
-      totalScore: Session.get("sortTotalScore")
-    });
-  },
-  'click .sortGrade': function() {
-    Session.set("sortGrade", -Session.get("sortGrade"));
-    Session.set("sort_by", {
-      grade: Session.get("sortGrade"),
-      totalScore: Session.get("sortTotalScore")
-    });
-  },
-  'click .sortExam1': function() {
-    Session.set("sortExam1", -Session.get("sortExam1"));
-    Session.set("sort_by", {
-      exam1: Session.get("sortExam1"),
-      totalScore: Session.get("sortTotalScore")
-    });
-  },
-  'click .sortExam2': function() {
-    Session.set("sortExam2", -Session.get("sortExam2"));
-    Session.set("sort_by", {
-      exam2: Session.get("sortExam2"),
-      totalScore: Session.get("sortTotalScore")
-    });
-  },
-  'click .sortExam3': function() {
-    Session.set("sortExam3", -Session.get("sortExam3"));
-    Session.set("sort_by", {
-      exam3: Session.get("sortExam3"),
-      totalScore: Session.get("sortTotalScore")
-    });
-  },
-  'click .sortExam4': function() {
-    Session.set("sortExam4", -Session.get("sortExam4"));
-    Session.set("sort_by", {
-      exam4: Session.get("sortExam4"),
-      totalScore: Session.get("sortTotalScore")
-    });
-  },
-  'click .sortExam5': function() {
-    Session.set("sortExam5", -Session.get("sortExam5"));
-    Session.set("sort_by", {
-      exam5: Session.get("sortExam5"),
-      totalScore: Session.get("sortTotalScore")
-    });
+function toggleSort(sortParam) {
+  if (Session.get("sort_current") != sortParam) {
+    setDefaultSortOptions();
+    Session.set("sort_current", sortParam);
+  } else {
+    Session.set("sort_" + sortParam, -Session.get("sort_" + sortParam));
   }
+}
+
+function setSort(sortParam) {
+  toggleSort(sortParam);
+  var sort_by = {}
+  sort_by[sortParam] = Session.get("sort_" + sortParam);
+  sort_by["totalScore"] = Session.get("sort_totalScore");
+  Session.set("sort_by", sort_by);
+}
+
+Template.Leaderboard.events({
+  'click .sort_totalScore': function() {
+    toggleSort("totalScore");
+    Session.set("sort_by", {
+      totalScore: Session.get("sort_totalScore"),
+      firstName: Session.get("sort_firstName"),
+      lastName: Session.get("sort_lastName")
+    });
+  },
+  'click .sort_firstName': function() { setSort("firstName"); },
+  'click .sort_lastName': function() { setSort("lastName"); },
+  'click .sort_school': function() { setSort("school"); },
+  'click .sort_grade': function() { setSort("grade"); },
+  'click .sort_exam1': function() { setSort("exam1"); },
+  'click .sort_exam2': function() { setSort("exam2"); },
+  'click .sort_exam3': function() { setSort("exam3"); },
+  'click .sort_exam4': function() { setSort("exam4"); },
+  'click .sort_exam5': function() { setSort("exam5"); }
 });
