@@ -1,17 +1,18 @@
-<template name = "Leaderboard_container">
-<body style="padding-top:0">
-  <div class="container-fluid">
-    <p> Click on a column heading to sort the table based on that column. Click again to toggle between ascending and descending order.</p>
-    <div class="row">
-      <div class="col-lg-12">
-        {{> leaderboard}}
+<template name = "LeaderboardContainer">
+  <body style="padding-top:0">
+    <div class="container-fluid">
+      <h1>Aragon Math League 2015 - 2016 Leaderboard</h1>
+      <p> Click on a column heading to sort the table based on that column. Click again to toggle between ascending and descending order.</p>
+      <div class="row">
+        <div class="col-lg-12">
+          {{> leaderboard}}
+        </div>
       </div>
     </div>
-  </div>
 
-  <!-- Bootstrap Core JavaScript -->
-  <script type="text/html" src="js/bootstrap.min.js"></script>
-</body>
+    <!-- Bootstrap Core JavaScript -->
+    <script type="text/html" src="js/bootstrap.min.js"></script>
+  </body>
 </template>
 
 <template name="leaderboard">
@@ -44,17 +45,17 @@
 </template>
 
 <template name="student">
-    <tr>
-      <td>{{rank}}</td>
-      <td>{{firstName}}</td>
-      <td>{{lastName}}</td>
-      <td>{{school}}</td>
-      <td>{{grade}}</td>
-      <td>{{exam1}}</td>
-      <td>{{exam2}}</td>
-      <td>{{exam3}}</td>
-      <td>{{exam4}}</td>
-      <td>{{exam5}}</td>
-      <td>{{totalScore}}</td>
-    </tr>
+  <tr>
+    <td>{{rank}}</td>
+    <td>{{firstName}}</td>
+    <td>{{lastName}}</td>
+    <td>{{school}}</td>
+    <td>{{grade}}</td>
+    <td>{{exam1}}</td>
+    <td>{{exam2}}</td>
+    <td>{{exam3}}</td>
+    <td>{{exam4}}</td>
+    <td>{{exam5}}</td>
+    <td>{{totalScore}}</td>
+  </tr>
 </template>
