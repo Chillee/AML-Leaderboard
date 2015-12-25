@@ -1,3 +1,3 @@
 Meteor.startup(function(){
-	// Students.insert({});
+	Students.remove({});
 });	

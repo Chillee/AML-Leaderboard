@@ -1,0 +1,13 @@
+<template name="Input">
+  <form class="form-horizontal">
+    {{#with field="firstName"}}
+      {{> inputAutocomplete settings=settings id="firstName" class="form-control" name="legend"}}
+    {{/with}}
+    {{#with field="lastName"}}
+      {{> inputAutocomplete settings=settings id="lastName" class="form-control"}}
+    {{/with}}
+  </form>
+</template>
+<template name="standard">
+    {{firstName}} {{lastName}} 
+</template>
