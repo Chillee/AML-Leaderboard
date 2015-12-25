@@ -48,10 +48,12 @@ Template.Leaderboard.helpers({
 	},
   arrow: function(sortParam) {
     if (Session.get("sort_current") == sortParam) {
-      if (Session.get("sort_" + sortParam) == -1) {
-        return "&#8615;";
-      } else {
+      if (  !(sortParam == "totalScore") 
+              != //XOR
+            !(Session.get("sort_" + sortParam) == -1)   ) {
         return "&#8613;";
+      } else {
+        return "&#8615;";
       }
     } else {
       return "";
