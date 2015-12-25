@@ -1,5 +1,4 @@
 Students = new Mongo.Collection('students');
-
 // Allow everything for easier development
 Students.allow({
 	insert: function(userId, doc) {
