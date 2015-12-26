@@ -38,7 +38,7 @@ Template.Leaderboard.helpers({
       transform: function(student) {
         student.rank = rankList[student.totalScore.toString()];
         for (var i = 1; i <= 5; i++) {
-          if (student["exam" + i.toString()] < 0) {
+          if (student["exam" + i.toString()] === null) {
             student["exam" + i.toString()] = "n/a";
           }
         }

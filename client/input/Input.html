@@ -5,14 +5,14 @@
       <label for="firstName" class="col-md-1 control-label">First: </label>
       <div class="col-md-2">
         {{#with field="firstName"}}
-          {{> inputAutocomplete settings=settings id="firstName" class="form-control" name="legend"}}
+          {{> inputAutocomplete settings=settings id="firstName" class="form-control" autocomplete="off"}}
         {{/with}}
       </div>
       
     <label for="lastName" class="col-md-1 control-label">Last: </label>
       <div class="col-md-2">
         {{#with field="lastName"}}
-          {{> inputAutocomplete settings=settings id="lastName" class="form-control"}}
+          {{> inputAutocomplete settings=settings id="lastName" class="form-control" autocomplete="off"}}
         {{/with}}
       </div>
       </div>
@@ -20,7 +20,7 @@
       <label for="school" class="col-md-1 control-label">School: </label>
       <div class="col-md-2">
         {{#with field="school"}}
-          {{> inputAutocomplete settings=settings id="school" class="form-control" name="legend"}}
+          {{> inputAutocomplete settings=settings id="school" class="form-control" autocomplete="off"}}
         {{/with}}
       </div>
       
@@ -63,7 +63,7 @@
 </template>
 
 <template name="standard">
-  {{firstName}} {{lastName}} 
+  {{firstName}} {{lastName}} - {{school}} 
 </template>
 
 <template name="schoolAutocomplete">

@@ -8,7 +8,7 @@ Template.Input.helpers({
 				rules: [{
 					collection: Schools,
 					field: 'name',
-					matchAll: true,
+					matchAll: false,
 					template: Template.schoolAutocomplete
 				}]
 			};
@@ -19,7 +19,7 @@ Template.Input.helpers({
 				rules: [{
 					collection: Students,
 					field: this.field,
-					matchAll: true,
+					matchAll: false,
 					template: Template.standard
 				}]
 			};
@@ -42,7 +42,30 @@ Template.Input.events({
 	},
 	'submit form': function(event){
 		event.preventDefault();
+		query = {firstName: $('#firstName').val(), school: $('#school').val()};
+		x = Students.find(query);
+		console.log(x.count());
+		if (x.count() == 0){
+			new_student = {
+				firstName: $('#firstName').val(),
+				lastName: $('#lastName').val(),
+				school: $('#school').val(),
+				grade: $('#grade').val(),
+				exam1: $('#exam1').val(),
+				exam2: $('#exam2').val(),
+				exam3: $('#exam3').val(),
+				exam4: $('#exam4').val(),
+				exam5: $('#exam5').val()
+
+			};
+			StudentSchema.clean(new_student);
+			Students.insert(new_student);
+		}
+		// console.log(x.fetch(), x.fetch().length);
+		
 		$('#firstName,#lastName,#exam1,#exam2,#exam3,#exam4,#exam5').val('');
+		$('#firstName').focus();
+
 		console.log("form submitted");
 	}
 });

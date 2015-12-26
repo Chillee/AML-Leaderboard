@@ -27,27 +27,27 @@ StudentSchema = new SimpleSchema({
 	exam1: {
 		type: Number,
 		label: "Exam 1",
-		defaultValue: -1
+		defaultValue: null
 	},
 	exam2: {
 		type: Number,
 		label: "Exam 2",
-		defaultValue: -1
+		defaultValue: null
 	},
 	exam3: {
 		type: Number,
 		label: "Exam 3",
-		defaultValue: -1
+		defaultValue: null
 	},
 	exam4: {
 		type: Number,
 		label: "Exam 4",
-		defaultValue: -1
+		defaultValue: null
 	},
 	exam5: {
 		type: Number,
 		label: "Exam 5",
-		defaultValue: -1
+		defaultValue: null
 	},
 	totalScore: {
 		type: Number,
@@ -55,7 +55,7 @@ StudentSchema = new SimpleSchema({
 		autoValue: function() {
 			var sum = 0;
 			for (var i = 1; i <= 5; i++) {
-				if (this.field("exam" + i.toString()).value > 0) {
+				if (this.field("exam" + i.toString()) !== null) {
 					sum += this.field("exam" + i.toString()).value;
 				}
 			}
