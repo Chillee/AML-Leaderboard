@@ -4,6 +4,9 @@ Students.allow({
 	insert: function(userId, doc) {
 		//return !!userId; //checks if userId exists
 		return true;
+	},
+	update: function(userId, doc, fields, modifier){
+		return true;
 	}
 });
 
