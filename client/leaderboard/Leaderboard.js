@@ -33,6 +33,14 @@ function getRankList() {
 Template.Leaderboard.helpers({
   students: function() {
     var rankList = getRankList();
+    query = {};
+    if ($('#firstName').length == 1){
+      if($('#firstName').val() == "Bow"){
+        query["school"] = "Bowditch";
+      }
+    }
+    // query["school"] = "Bowditch";
+    console.log(query);
     return Students.find({}, {
       sort: Session.get("sort_by"),
       transform: function(student) {
@@ -51,13 +59,28 @@ Template.Leaderboard.helpers({
       if (  !(sortParam == "totalScore") 
               != //XOR
             !(Session.get("sort_" + sortParam) == -1)   ) {
-        return "&#8613;";
+        return "<i class='fa fa-sort-desc'></i>";
       } else {
-        return "&#8615;";
+        return "<i class='fa fa-sort-asc'></i>";
       }
     } else {
-      return "";
+      return "<i class='fa fa-sort'></i>";
     }
+  },
+  average: function(avg_param, cur_students){
+    // students = students.fetch();
+    var students = cur_students.fetch();
+    var total = 0;
+    var numScores = 0;
+    for (var i=0; i<students.length; i++){
+      if (students[i][avg_param] !== "n/a" && students[i][avg_param] !== null){
+        numScores++;
+        total += parseInt(students[i][avg_param]);
+      }
+      // console.log(total);
+    };
+    console.log(numScores, total);
+    return (total/numScores).toFixed(2);
   }
 });
 

@@ -53,12 +53,12 @@ Template.Input.events({
 				firstName: $('#firstName').val(),
 				lastName: $('#lastName').val(),
 				school: $('#school').val(),
-				grade: $('#grade').val(),
-				exam1: $('#exam1').val(),
-				exam2: $('#exam2').val(),
-				exam3: $('#exam3').val(),
-				exam4: $('#exam4').val(),
-				exam5: $('#exam5').val()
+				grade: parseInt($('#grade').val()),
+				exam1: parseInt($('#exam1').val()),
+				exam2: parseInt($('#exam2').val()),
+				exam3: parseInt($('#exam3').val()),
+				exam4: parseInt($('#exam4').val()),
+				exam5: parseInt($('#exam5').val())
 
 			};
 			StudentSchema.clean(new_student);
@@ -68,12 +68,12 @@ Template.Input.events({
 			Students.update(updated_student._id, {
 				$set: {
 					lastName: $('#lastName').val(),
-					grade: $('#grade').val(),
-					exam1: $('#exam1').val(),
-					exam2: $('#exam2').val(),
-					exam3: $('#exam3').val(),
-					exam4: $('#exam4').val(),
-					exam5: $('#exam5').val()
+					grade: parseInt($('#grade').val()),
+					exam1: parseInt($('#exam1').val()),
+					exam2: parseInt($('#exam2').val()),
+					exam3: parseInt($('#exam3').val()),
+					exam4: parseInt($('#exam4').val()),
+					exam5: parseInt($('#exam5').val())
 				}
 			});
 
@@ -90,27 +90,14 @@ Template.Input.events({
 
 
 [
-	{
-		name: "Bowditch"
-	},
-	{
-		name: "Abbott"
-	},
-	{
-		name: "Bayside"
-	},
-	{
-		name: "Borel"
-	},
-	{
-		name: "Castilleja"
-	},
-	{
-		name: "Harvest Park"
-	},
-	{
-		name: "Synapse"
-	}
-].forEach(function (obj) {
-	Schools.insert(obj);
+	
+ "Bowditch",
+ "Abbott",
+ "Bayside",
+ "Borel",
+ "Castilleja",
+ "Harvest Park",
+ "Synapse"
+].forEach(function (school_name) {
+	Schools.insert({name: school_name});
 });
