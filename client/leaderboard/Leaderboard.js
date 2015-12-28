@@ -12,7 +12,7 @@ function setDefaultSortOptions() {
 }
 
 Meteor.startup(function() {
-  Meteor.subscribe('students');
+  Meteor.subscribe("students");
   setDefaultSortOptions();
   Session.set("sort_current", "totalScore");
   Session.set("sort_by", {totalScore: Session.get("sort_totalScore")});
@@ -33,53 +33,49 @@ function getRankList() {
 Template.Leaderboard.helpers({
   students: function() {
     var rankList = getRankList();
-    query = {};
-    if ($('#firstName').length == 1){
-      if($('#firstName').val() == "Bow"){
-        query["school"] = "Bowditch";
-      }
-    }
-    // query["school"] = "Bowditch";
-    console.log(query);
-    return Students.find({}, {
-      sort: Session.get("sort_by"),
-      transform: function(student) {
-        student.rank = rankList[student.totalScore.toString()];
-        for (var i = 1; i <= 5; i++) {
-          if (student["exam" + i.toString()] === null) {
-            student["exam" + i.toString()] = "n/a";
+    return Students.find(
+      {
+        firstName: new RegExp(Session.get("firstNameFilter"), "i"),
+        lastName: new RegExp(Session.get("lastNameFilter"), "i"),
+        school: new RegExp(Session.get("schoolFilter"), "i")
+      }, 
+      {
+        sort: Session.get("sort_by"),
+        transform: function(student) {
+          student.rank = rankList[student.totalScore.toString()];
+          for (var i = 1; i <= 5; i++) {
+            if (student["exam" + i.toString()] === null) {
+              student["exam" + i.toString()] = "n/a";
+            }
           }
+          return student;
         }
-        return student;
       }
-    });
+    );
 	},
   arrow: function(sortParam) {
     if (Session.get("sort_current") == sortParam) {
       if (  !(sortParam == "totalScore") 
               != //XOR
             !(Session.get("sort_" + sortParam) == -1)   ) {
-        return "<i class='fa fa-sort-desc'></i>";
+        return "<i class=\"fa fa-sort-asc\"></i>";
       } else {
-        return "<i class='fa fa-sort-asc'></i>";
+        return "<i class=\"fa fa-sort-desc\"></i>";
       }
     } else {
-      return "<i class='fa fa-sort'></i>";
+      return "<i class=\"fa fa-sort\"></i>";
     }
   },
   average: function(avg_param, cur_students){
-    // students = students.fetch();
     var students = cur_students.fetch();
     var total = 0;
     var numScores = 0;
-    for (var i=0; i<students.length; i++){
+    for (var i = 0; i < students.length; i++){
       if (students[i][avg_param] !== "n/a" && students[i][avg_param] !== null){
         numScores++;
         total += parseInt(students[i][avg_param]);
       }
-      // console.log(total);
     };
-    console.log(numScores, total);
     return (total/numScores).toFixed(2);
   }
 });
@@ -102,7 +98,7 @@ function setSort(sortParam) {
 }
 
 Template.Leaderboard.events({
-  'click .sort_totalScore': function() {
+  "click .sort_totalScore": function() {
     toggleSort("totalScore");
     Session.set("sort_by", {
       totalScore: Session.get("sort_totalScore"),
@@ -110,13 +106,13 @@ Template.Leaderboard.events({
       lastName: Session.get("sort_lastName")
     });
   },
-  'click .sort_firstName': function() { setSort("firstName"); },
-  'click .sort_lastName': function() { setSort("lastName"); },
-  'click .sort_school': function() { setSort("school"); },
-  'click .sort_grade': function() { setSort("grade"); },
-  'click .sort_exam1': function() { setSort("exam1"); },
-  'click .sort_exam2': function() { setSort("exam2"); },
-  'click .sort_exam3': function() { setSort("exam3"); },
-  'click .sort_exam4': function() { setSort("exam4"); },
-  'click .sort_exam5': function() { setSort("exam5"); }
+  "click .sort_firstName": function() { setSort("firstName"); },
+  "click .sort_lastName": function() { setSort("lastName"); },
+  "click .sort_school": function() { setSort("school"); },
+  "click .sort_grade": function() { setSort("grade"); },
+  "click .sort_exam1": function() { setSort("exam1"); },
+  "click .sort_exam2": function() { setSort("exam2"); },
+  "click .sort_exam3": function() { setSort("exam3"); },
+  "click .sort_exam4": function() { setSort("exam4"); },
+  "click .sort_exam5": function() { setSort("exam5"); }
 });
