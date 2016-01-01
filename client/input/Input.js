@@ -29,15 +29,18 @@ Template.Input.helpers({
 });
 
 Template.Input.events({
-	"keyup #firstName": function() {
+	"keyup": function() {
 		Session.set("firstNameFilter", "^" + $("#firstName").val());
-	},
-	"keyup #lastName": function() {
-		Session.set("lastNameFilter", "^" + $("#lastName").val());
-	},
-	"keyup #school": function() {
-		Session.set("schoolFilter", "^" + $("#school").val());
-	},
+         Session.set("lastNameFilter", "^" + $("#lastName").val());
+         Session.set("schoolFilter", "^" + $("#school").val());
+     },
+	// },
+	// "keyup #lastName": function() {
+	// 	Session.set("lastNameFilter", "^" + $("#lastName").val());
+	// },
+	// "keyup #school": function() {
+	// 	Session.set("schoolFilter", "^" + $("#school").val());
+	// },
 	"autocompleteselect #firstName,#lastName": function(event, template, doc) {
         console.log(doc);
 		$(".-autocomplete-container").remove();
@@ -88,7 +91,7 @@ Template.Input.events({
 			});
 		}
 		//reset form
-		$("#firstName,#lastName,#exam1,#exam2,#exam3,#exam4,#exam5").val("");
+		$("#firstName,#lastName,#school,#grade,#exam1,#exam2,#exam3,#exam4,#exam5").val("");
 		$("#firstName").focus();
 		console.log("form submitted");
 	}

@@ -85,6 +85,7 @@ function randomID() {
     return text;
 }
 
+Students.attachSchema(StudentSchema);
 var student1 = {
     firstName: randomID(),
     lastName: randomID(),
@@ -94,7 +95,7 @@ var student1 = {
     updatedAt: null
 }
 for (var i = 2; i <= 5; i++) {
-    if (Math.random() < 0.5) {
+    if (Math.random() < 1) {
         student1["exam" + i.toString()] = Math.floor(Math.random() * 7);
     }
 }
