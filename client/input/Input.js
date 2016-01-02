@@ -30,7 +30,7 @@ Template.Input.helpers({
 
 Template.Input.events({
 	"keyup": function() {
-		Session.set("firstNameFilter", "^" + $("#firstName").val());
+		 Session.set("firstNameFilter", "^" + $("#firstName").val());
          Session.set("lastNameFilter", "^" + $("#lastName").val());
          Session.set("schoolFilter", "^" + $("#school").val());
      },

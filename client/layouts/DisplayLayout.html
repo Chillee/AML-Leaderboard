@@ -1,10 +1,14 @@
 <template name="DisplayLayout">
+  {{> Header}}
+  <title>AML Leaderboard</title>
   <div class="container-fluid">
-    <h1>Aragon Math League 2015 - 2016 Leaderboard</h1>
     <p> Click on a column heading to sort the table based on that column. Click again to toggle between ascending and descending order. An arrow indicates which column the table is currently sorted by. The arrow points in the direction of the larger entries.</p>
     <div class="row">
       <div class="col-lg-12">
+        
+        {{> Input}}
         {{> Leaderboard}}
+        
       </div>
     </div>
   </div>
