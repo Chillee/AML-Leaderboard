@@ -29,10 +29,13 @@ Template.Input.helpers({
 });
 
 Template.Input.events({
-	"keyup": function() {
-		 Session.set("firstNameFilter", "^" + $("#firstName").val());
-         Session.set("lastNameFilter", "^" + $("#lastName").val());
-         Session.set("schoolFilter", "^" + $("#school").val());
+	"keyup, click": function(event) {
+        if (event.keyCode === 13){ //So the user can see the result of their changes after submitting.
+            return;
+        }
+		Session.set("firstNameFilter", "^" + $("#firstName").val());
+        Session.set("lastNameFilter", "^" + $("#lastName").val());
+        Session.set("schoolFilter", "^" + $("#school").val());
      },
 	// },
 	// "keyup #lastName": function() {
