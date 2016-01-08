@@ -1,5 +1,7 @@
 Students = new Mongo.Collection('students');
 // Allow everything for easier development
+
+
 Students.allow({
     insert: function(userId, doc) {
         //return !!userId; //checks if userId exists
@@ -58,7 +60,7 @@ StudentSchema = new SimpleSchema({
         autoValue: function() {
             var sum = 0;
             for (var i = 1; i <= 5; i++) {
-                if (this.field("exam" + i.toString()) !== null) {
+                if (this.field("exam" + i.toString()) !== -1) {
                     sum += this.field("exam" + i.toString()).value;
                 }
             }
@@ -86,20 +88,20 @@ function randomID() {
 }
 
 Students.attachSchema(StudentSchema);
-var student1 = {
-    firstName: randomID(),
-    lastName: randomID(),
-    school: randomID(),
-    grade: Math.floor(Math.random() * 13),
-    exam1: Math.floor(Math.random() * 7),
-    updatedAt: null
-}
-for (var i = 2; i <= 5; i++) {
-    if (Math.random() < 1) {
-        student1["exam" + i.toString()] = Math.floor(Math.random() * 7);
-    }
-}
+// var student1 = {
+//     firstName: randomID(),
+//     lastName: randomID(),
+//     school: randomID(),
+//     grade: Math.floor(Math.random() * 13),
+//     exam1: Math.floor(Math.random() * 7),
+//     updatedAt: null
+// }
+// for (var i = 2; i <= 5; i++) {
+//     if (Math.random() < 1) {
+//         student1["exam" + i.toString()] = Math.floor(Math.random() * 7);
+//     }
+// }
 
-StudentSchema.clean(student1);
+// StudentSchema.clean(student1);
 
-Students.insert(student1);
+// Students.insert(student1);

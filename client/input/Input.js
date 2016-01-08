@@ -71,11 +71,11 @@ Template.Input.events({
 				lastName: $("#lastName").val(),
 				school: $("#school").val(),
 				grade: parseInt($("#grade").val()),
-				exam1: parseInt($("#exam1").val()),
-				exam2: parseInt($("#exam2").val()),
-				exam3: parseInt($("#exam3").val()),
-				exam4: parseInt($("#exam4").val()),
-				exam5: parseInt($("#exam5").val())
+				exam1: parseInt($("#exam1").val() === '' ? -1 : $("#exam1").val()),
+				exam2: parseInt($("#exam2").val() === '' ? -1 : $("#exam2").val()),
+				exam3: parseInt($("#exam3").val() === '' ? -1 : $("#exam3").val()),
+				exam4: parseInt($("#exam4").val() === '' ? -1 : $("#exam4").val()),
+				exam5: parseInt($("#exam5").val() === '' ? -1 : $("#exam5").val())
 			};
 			StudentSchema.clean(new_student);
 			Students.insert(new_student);
@@ -85,11 +85,11 @@ Template.Input.events({
 				$set: {
 					lastName: $("#lastName").val(),
 					grade: parseInt($("#grade").val()),
-					exam1: parseInt($("#exam1").val()),
-					exam2: parseInt($("#exam2").val()),
-					exam3: parseInt($("#exam3").val()),
-					exam4: parseInt($("#exam4").val()),
-					exam5: parseInt($("#exam5").val())
+					exam1: parseInt($("#exam1").val() === '' ? -1 : $("#exam1").val()),
+					exam2: parseInt($("#exam2").val() === '' ? -1 : $("exam2").val()),
+					exam3: parseInt($("#exam3").val() === '' ? -1 : $("#exam3").val()),
+					exam4: parseInt($("#exam4").val() === '' ? -1 : $("exam4").val()),
+					exam5: parseInt($("#exam5").val() === '' ? -1 : $("#exam5").val())
 				}
 			});
 		}

@@ -1,3 +1,8 @@
+Accounts.ui.config({
+    passwordSignupFields: 'USERNAME_ONLY'
+});
+
+
 function setDefaultSortOptions() {
   Session.set("sort_totalScore", -1);
   Session.set("sort_firstName", 1);
@@ -44,7 +49,7 @@ Template.Leaderboard.helpers({
         transform: function(student) {
           student.rank = rankList[student.totalScore.toString()];
           for (var i = 1; i <= 5; i++) {
-            if (student["exam" + i.toString()] === null) {
+            if (student["exam" + i.toString()] === -1) {
               student["exam" + i.toString()] = "n/a";
             }
           }
